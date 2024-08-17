@@ -4,6 +4,7 @@ name: Run Python Script
 on:
   schedule:
     - cron: "0 0 * * *"  # Jeden Tag um Mitternacht
+  workflow_dispatch:
 
 jobs:
   run-script:
