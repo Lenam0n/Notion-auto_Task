@@ -8,14 +8,14 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-
-    steps:
-
-    - name: Test
-      env:
+    environment: task
+    env:
         NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
         DATABASE_A_ID: ${{ secrets.DATABASE_A_ID }}
         DATABASE_B_ID: ${{ secrets.DATABASE_B_ID }}
+
+    steps:
+    - name: Test
       run: echo "my keys are Notion ${{NOTION_API_KEY}} , A- ${{DATABASE_A_ID}}, B- ¢{{DATABASE_B_ID}}
 
     
@@ -32,10 +32,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-      env:
-        NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-        DATABASE_A_ID: ${{ secrets.DATABASE_A_ID }}
-        DATABASE_B_ID: ${{ secrets.DATABASE_B_ID }}
 
     - name: Run script
       
