@@ -10,29 +10,28 @@ env:
     
     
     
+
+
 jobs:
-  build:
+  deployment:
+    environment: 
+      name : task
     runs-on: ubuntu-latest
-    environment: task
 
     steps:
-    - name: Display environment variables
-      run: |
-        echo "my keys are Notion $NOTION_API_KEY, A- $DATABASE_A_ID, B- $DATABASE_B_ID"
-    
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: 3.12
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        
-    - name: Run script
-      run: |
-        python app.py
+      - name: Checkout code
+        uses: actions/checkout@v3
+  
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.12
+  
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Run script
+        run: |
+          python app.py
