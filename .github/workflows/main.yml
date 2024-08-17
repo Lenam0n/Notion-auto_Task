@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Test
-      run: echo "my keys are Notion ${{NOTION_API_KEY}} , A- ${{DATABASE_A_ID}}, B- ¢{{DATABASE_B_ID}}
+      run: echo "my keys are Notion ${{ secrets.NOTION_API_KEY }}, A- ${{ secrets.DATABASE_A_ID }}, B- ${{ secrets.DATABASE_B_ID }}"
 
     
     - name: Checkout code
