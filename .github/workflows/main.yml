@@ -1,30 +1,31 @@
-name: Notion Automation
+name: Run Notion Script
 
 on:
   schedule:
-    - cron: '0 3 * * *'  # Läuft täglich um 3:00 Uhr UTC
-  workflow_dispatch:  # Manuelles Triggern des Workflows
+    - cron: '0 0 * * *'  # Täglich um Mitternacht
 
 jobs:
-  run-script:
+  build:
     runs-on: ubuntu-latest
 
-    environment: task
-
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v3
       with:
-        python-version: '3.x'
+        python-version: 3.12
 
     - name: Install dependencies
-      run: pip install notion-client
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-    - name: Run Notion Automation Script
+    - name: Run script
       env:
         NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
         DATABASE_A_ID: ${{ secrets.DATABASE_A_ID }}
         DATABASE_B_ID: ${{ secrets.DATABASE_B_ID }}
-      run: python app.py
+      run: |
+        python app.py
