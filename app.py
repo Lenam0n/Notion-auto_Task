@@ -6,6 +6,14 @@ notion_api_key = os.getenv("NOTION_API_KEY")
 database_a_id = os.getenv("DATABASE_A_ID")
 database_b_id = os.getenv("DATABASE_B_ID")
 
+# Debugging: Überprüfen, ob die IDs korrekt geladen wurden
+print("Database A ID:", database_a_id)
+print("Database B ID:", database_b_id)
+
+# Fehlerbehandlung: Sicherstellen, dass die IDs nicht leer sind
+if not database_a_id or not database_b_id:
+    raise ValueError("Die Datenbank-ID wurde nicht richtig gesetzt.")
+
 # Notion API Initialisierung
 notion = Client(auth=notion_api_key)
 
