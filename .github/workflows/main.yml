@@ -7,12 +7,12 @@ on:
     
 jobs:
   build:
-    runs-on: ubuntu-latest
     environment: task
     env:
         NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
         DATABASE_A_ID: ${{ secrets.DATABASE_A_ID }}
         DATABASE_B_ID: ${{ secrets.DATABASE_B_ID }}
+    runs-on: ubuntu-latest
 
     steps:
     - name: Display environment variables
