@@ -5,10 +5,20 @@ on:
     - cron: '0 0 * * *'  # Täglich um Mitternacht
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Test
+      env:
+        NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+        DATABASE_A_ID: ${{ secrets.DATABASE_A_ID }}
+        DATABASE_B_ID: ${{ secrets.DATABASE_B_ID }}
+      run: echo "my keys are Notion ${{NOTION_API_KEY}} , A- ${{DATABASE_A_ID}}, B- ¢{{DATABASE_B_ID}}
+
+    
     - name: Checkout code
       uses: actions/checkout@v3
 
@@ -23,9 +33,6 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run script
-      env:
-        NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-        DATABASE_A_ID: ${{ secrets.DATABASE_A_ID }}
-        DATABASE_B_ID: ${{ secrets.DATABASE_B_ID }}
+      
       run: |
         python app.py
