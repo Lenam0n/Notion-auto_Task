@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: task
 
+    # Definiere die Umgebungsvariablen für den gesamten Job
+    env:
+      NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+      DATABASE_A_ID: ${{ secrets.DATABASE_A_ID }}
+      DATABASE_B_ID: ${{ secrets.DATABASE_B_ID }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -27,7 +33,3 @@ jobs:
       - name: Run script
         run: |
           python app.py
-        env:
-          NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-          DATABASE_A_ID: ${{ secrets.DATABASE_A_ID }}
-          DATABASE_B_ID: ${{ secrets.DATABASE_B_ID }}
