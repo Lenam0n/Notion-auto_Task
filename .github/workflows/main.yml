@@ -10,7 +10,7 @@ jobs:
   run-script:
     runs-on: ubuntu-latest
     environment: 
-      name : task
+      name : app
 
     env:
       NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
