@@ -45,6 +45,29 @@ def get_date(entry, property_name):
     except KeyError as e:
         return None
 
+# Funktion, um die aktuellen Relationen abzurufen und dann den neuen hinzuzufügen
+def append_relation(entry_a_id, entry_b_id):
+    # Zuerst die existierenden Relationen abrufen
+    page = notion.pages.retrieve(entry_a_id)
+    current_relations = page['properties']['TASKS']['relation']
+    
+    # Prüfen, ob die Relation bereits existiert, um doppelte Einträge zu vermeiden
+    if any(relation['id'] == entry_b_id for relation in current_relations):
+        print(f"Eintrag {entry_b_id} ist bereits verknüpft.")
+        return
+    
+    # Neuen Eintrag zur Relation hinzufügen
+    updated_relations = current_relations + [{"id": entry_b_id}]
+    
+    # Die Seite mit den aktualisierten Relationen updaten
+    notion.pages.update(
+        entry_a_id,
+        properties={
+            "TASKS": {
+                "relation": updated_relations
+            }
+        }
+    )
 
 # Verknüpfen basierend auf dem Datum
 for entry_a in entries_a:
@@ -60,16 +83,7 @@ for entry_a in entries_a:
             continue  # Überspringen, wenn das Datum nicht gesetzt ist
         
         if date_a == date_b:
-            # Verknüpfe die Einträge
-            notion.pages.update(
-                entry_a['id'],
-                properties={
-                    "TASKS": {
-                        "relation": [
-                            {"id": entry_b['id']}
-                        ]
-                    }
-                }
-            )
+            # Verknüpfe die Einträge ohne bestehende Relationen zu überschreiben
+            append_relation(entry_a['id'], entry_b['id'])
 
 print("Verknüpfung abgeschlossen.")
